@@ -19,6 +19,7 @@ export const CategoryList: React.FC<IResourceComponentsProps> = () => {
     resource: "category",
   });
 
+
   return (
     <List>
       <Table

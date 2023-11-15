@@ -1,6 +1,6 @@
 import React from "react";
 import { IResourceComponentsProps } from "@refinedev/core";
-import { Create, useForm, useSelect } from "@refinedev/antd";
+import { Edit, useForm, useSelect } from "@refinedev/antd";
 import { Form, Input, Select, DatePicker } from "antd";
 import dayjs from "dayjs";
 
@@ -12,7 +12,7 @@ export const CategoryEdit: React.FC<IResourceComponentsProps> = () => {
     });
 
     return (
-        <Create saveButtonProps={saveButtonProps}>
+        <Edit saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
                 <Form.Item
                     label="Title"
@@ -26,6 +26,6 @@ export const CategoryEdit: React.FC<IResourceComponentsProps> = () => {
                     <Input />
                 </Form.Item>
             </Form>
-        </Create>
+        </Edit>
     );
 };

@@ -9,38 +9,43 @@ import {
   MarkdownField,
   DateField,
   useSelect,
+  FilterDropdown,
 } from "@refinedev/antd";
 
-
-
-import { Table, Space } from "antd";
+import { Table, Space, Radio } from "antd";
 
 export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
-
-
   const { tableProps, setCurrent, setPageSize } = useTable({
     syncWithLocation: true,
     pagination: {
-        pageSize: 12,
+      pageSize: 12,
     },
   });
 
+  // const { data: categoryData, isLoading: categoryIsLoading } = useMany({
+  //   resource: "category",
+  //   ids: tableProps?.dataSource?.map((item) => item?.category?.id) ?? [],
+  //   queryOptions: {
+  //     enabled: !!tableProps?.dataSource,
+  //   },
+  // });
 
   const { data: categoryData, isLoading: categoryIsLoading } = useMany({
     resource: "category",
-    ids: tableProps?.dataSource?.map((item) => item?.category?.id) ?? [],
+    ids: [], // Pass an empty array for ids to fetch all categories
     queryOptions: {
-      enabled: !!tableProps?.dataSource,
+      enabled: true, // Fetch all categories regardless of ids
     },
   });
 
+  const { selectProps: categorySelectProps } = useSelect({
+    resource: "category",
+  });
 
-  
 
   const { selectProps: blogSelectProps } = useSelect({
     resource: "blog",
-});
-
+  });
 
   return (
     <List>
@@ -52,7 +57,6 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
           showSizeChanger: true,
           onShowSizeChange: (current, size) => {
             setPageSize(size);
-
           },
           onChange: (page) => {
             setCurrent(page);
@@ -72,11 +76,9 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
           dataIndex={["category", "id"]}
           title="Category"
           render={(value) =>
-            categoryIsLoading ? (
-              <>Loading...</>
-            ) : (
-              categoryData?.data?.find((item) => item.id === value)?.category
-            )
+            categorySelectProps?.options?.find((item) => item.value === value)
+              ?.label
+
           }
         />
         <Table.Column dataIndex="status" title="Status" />
@@ -96,7 +98,6 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
             </Space>
           )}
         />
-         
       </Table>
     </List>
   );

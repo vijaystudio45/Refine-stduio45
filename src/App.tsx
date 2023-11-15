@@ -5,8 +5,8 @@ import {
   ThemedLayout,
 } from "@refinedev/antd";
 import routerProvider, { NavigateToResource } from "@refinedev/react-router-v6";
-import dataProvider from "@refinedev/simple-rest";
-
+// import dataProvider from "@refinedev/simple-rest";
+import {dataProvider} from "./data-provider"
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 
 import { AntdInferencer } from "@refinedev/inferencer/antd";
@@ -31,10 +31,10 @@ const App: React.FC = () => {
         resources={[
           {
             name: "blog",
-            list: "/blog-posts",
-            show: "/blog-posts/show/:id",
-            create: "/blog-posts/create",
-            edit: "/blog-posts/edit/:id",
+            list: "/blog_posts",
+            show: "/blog_posts/show/:id",
+            create: "/blog_posts/create",
+            edit: "/blog_posts/edit/:id",
             meta: { canDelete: true },
           },
           {
@@ -55,7 +55,7 @@ const App: React.FC = () => {
             }
           >
             <Route index element={<NavigateToResource />} />
-            <Route path="blog-posts">
+            <Route path="blog_posts">
               <Route index element={<BlogPostList />} />
               <Route path="show/:id" element={<BlogPostShow />} />
               <Route path="create" element={<BlogPostCreate />} />
